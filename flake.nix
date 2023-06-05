@@ -30,5 +30,11 @@
             import ./shell.nix { inherit pkgs; };
         };
 
+        defaultPackage = packages.fio_bench;
+        packages = flake-utils.lib.flattenTree
+          rec {
+            fio_bench = pkgs.python3Packages.callPackage ./default.nix { };
+          };
+
       });
 }
