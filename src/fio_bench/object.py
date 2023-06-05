@@ -4,14 +4,12 @@ from typing import Literal
 
 
 class Command:
-    def __init__(self, type: Literal["write", "read", "readwrite"], name: str = "fio_test", ramp_time: int = 4, size: str = "4G", bs: str = "4M"):
+    def __init__(self, type: Literal["write", "read", "randread", "randwrite", "readwrite", "randrw"], ramp_time: int = 4, size: str = "4G", bs: str = "4M"):
         """
         A class containing the fio command.
         Parameters:
-            type: Literal["write", "read", "readwrite"]
+            type: Literal["write", "read", "randread", "randwrite", "readwrite", "randrw"]
                 the type of the fio command
-            name: str
-                the name of the fio command
             ramp_time: int
                 the ramp time of the fio command
             size: str
@@ -21,7 +19,6 @@ class Command:
         """
 
         self.type = type
-        self.name = name
         self.ramp_time = ramp_time
         self.size = size
         self.bs = bs
@@ -31,7 +28,7 @@ class Command:
         Returns argument string for fio.
         Does not include the fio path.
         """
-        return f"--readwrite={self.type} --bs={self.bs} --size={self.size} --ramp_time={self.ramp_time} --name=tmp/{self.name} --output-format=json --output=out/{self.name}-{self.type}-{self.bs}-{self.size}.json"
+        return f"--readwrite={self.type} --bs={self.bs} --size={self.size} --ramp_time={self.ramp_time} --name=tmp/fio_test --output-format=json --output=out/{self.type}-{self.bs}-{self.size}.json"
 
     def fio_path(self):
         """
