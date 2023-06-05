@@ -23,4 +23,8 @@ def main():
 
 
 if __name__ == "__main__":
+    """
+    When you run `python3 src/fio_bench/cli.py`, this block will be called.
+    """
+
     main()
