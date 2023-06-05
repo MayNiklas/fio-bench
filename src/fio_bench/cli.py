@@ -16,10 +16,31 @@ def main():
     When you run `python -m fio_bench`, this function will be called.
     """
 
-    for z in ["4M", "1M", "4k"]:
-        for i in ["read", "write", "readwrite"]:
-            fio_bench.Command(i, bs=z).run()
-            time.sleep(20)
+    # this is just a example!
+    # you can use this libary within your own scripts
+
+    # we create a new fio_bench.Command objects
+    # to collect a meaningful result, we always use size 8G
+    # block sizes:
+    # 4M for sequential
+    # 8K for mixed
+    # 4K for random
+
+    commands = []
+
+    for type in ["write", "read", "randread", "randwrite", "readwrite", "randrw"]:
+        for blocksize in ["4M", "8K", "4K"]:
+            commands.append(fio_bench.Command(
+                type=type, size="8G", bs=blocksize)
+            )
+
+    for command in commands:
+        command.run()
+        # after each command, we wait 30 seconds
+        # drives get slower when their caches are full
+        # so we wait 60 seconds to let the drive cool down
+        # each run should be done under the same conditions
+        time.sleep(60)
 
 
 if __name__ == "__main__":
