@@ -54,8 +54,14 @@ class Command:
         if not os.path.exists("tmp/"):
             os.mkdir("tmp/")
 
+        print(
+            f"now testing: block size: {self.bs} with size: {self.size} in {self.type} mode")
+
         # run the fio command and store the output in result
         result = os.popen(f"{self.fio_path()} {self.ARGS()}").read()
+
+        print(
+            f"finished testing block size: {self.bs} with size: {self.size} in {self.type} mode")
 
         # after running the command, remove the temporary test files
         # this is needed because fio does not remove them
