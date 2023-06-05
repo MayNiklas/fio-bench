@@ -51,6 +51,6 @@ class Command:
 
 for z in ["4M", "4k"]:
     for i in ["read", "write", "readwrite"]:
-        time.sleep(10)
+        time.sleep(20)
         my_test = Command(i, bs=z)
         my_test.run()
